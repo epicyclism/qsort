@@ -30,8 +30,17 @@ namespace epicyclism
 		if (b < e)
 		{
 			I sp = partition(b, e);
-			qsort(b, sp);
-			qsort(sp + 1, e);
+			// minimise max stack depth by recursing on smaller partition first
+			if ((sp - b) < (e - sp + 1))
+			{
+				qsort(b, sp);
+				qsort(sp + 1, e);
+			}
+			else
+			{
+				qsort(sp + 1, e);
+				qsort(b, sp);
+			}
 		}
 	}
 
@@ -63,8 +72,17 @@ namespace epicyclism
 		if (b < e)
 		{
 			I sp = partition(b, e);
-			qsort(b, sp, f);
-			qsort(sp + 1, e, f);
+			// minimise max stack depth by recursing on smaller partition first
+			if ((sp - b) < (e - sp + 1))
+			{
+				qsort(b, sp, f);
+				qsort(sp + 1, e, f);
+			}
+			else
+			{
+				qsort(sp + 1, e, f);
+				qsort(b, sp, f);
+			}
 		}
 	}
 }
